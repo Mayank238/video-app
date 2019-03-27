@@ -1,14 +1,33 @@
 <template>
 	<div class="bg">
-		<div class="login">
-		  <form>
-        <h2 style="color:white;">Log in</h2>
+		<div class="register">
+			<form>
+				<h2 style="color:white; margin-bottom:20px;">Sign Up</h2>
           <div class="form-group wrap-input2">
             <input
               type="text"
               class=" input2 "
-              v-model="uname"
+              v-model="name"
               placeholder="Username"
+              required="required"
+            >
+          </div>
+
+          <div class="form-group wrap-input2">
+            <input
+              type="text"
+              class=" input2 "
+              v-model="contact"
+              placeholder="Contact no"
+              required="required"
+            >
+          </div>
+          <div class="form-group wrap-input2">
+            <input
+              type="email"
+              class=" input2 "
+              v-model="email"
+              placeholder="E-mail"
               required="required"
             >
           </div>
@@ -16,62 +35,59 @@
             <input
               type="password"
               class="input2"
-              v-model="pass"
+              v-model="password"
               placeholder="Password"
               required="required"
             >
           </div>
-          <div class="form-group">
-            <button type="submit"
-                    class="btn btn-success col-lg-12"
-                    @click="getdata">Log in
+           <div class="form-group">
+            <button type="submit" class="btn btn-success col-lg-12" @click="storedata">
+              Sign Up
             </button>
             <!-- <a href="#" class="fp">Forgot Password?</a> -->
           </div>
-          <div >
-            <label style="color:gray;">
-              <input type="checkbox" > Remember me
-              <a href="#" class="fp" style="color:white;">Forgot Password?</a>
+          <div class="text-light t1">
+          	<label>
+          	<p>Have an account?
+          		<router-link to="/" style="color:white;" class="space"> Login here</router-link></p>
             </label>
           </div>
-          <div class="form-group">
-
-          </div>
-      </form>
-        <router-link to="/registration" style="color:white;">
-        Create an Account
-        </router-link>
-    </div>
+			</form>
+		</div>
 	</div>
 </template>
-<script type="text/javascript">
-	export default{
-		props:['logseen'],
-		data(){
-			return{
-        uname:'',
-        pass:'',
-        u1:'',
-        p1:'',
-        see: this.logseen
-			}
-		},
-		methods:{
-			getdata(){
-				this.u1 = localStorage.getItem("email")
-        this.p1 = localStorage.getItem("password")
-        if ((this.uname==this.u1) && (this.pass==this.p1)) {
-          this.see = !this.see;
-				  this.$emit('logseenupdated', this.see);
-        } else {
-          window.alert('Invalid Login')
-        }
-			}
-		}
-	}
+<script>
+export default {
+  data() {
+    return {
+      name: "",
+      contact: "",
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    storedata() {
+      if (
+        this.name != "" &&
+        this.contact != "" &&
+        this.email != "" &&
+        this.password != ""
+      ) {
+        localStorage.setItem("name", this.name);
+        localStorage.setItem("email", this.email);
+        localStorage.setItem("contact", this.contact);
+        localStorage.setItem("password", this.password);
+        console.log("deveshi");
+        this.$router.push("/");
+      } else {
+        window.alert("Required Valid Details");
+      }
+    }
+  }
+};
 </script>
 <style scoped>
-
 .bg {
   /* The image used */
   background-image: url('https://backgroundcheckall.com/wp-content/uploads/2017/12/web-development-background-8.jpg');
@@ -84,12 +100,12 @@
   background-size: cover;
   background-attachment: fixed;
 	}
-
-	.login {
+	.register{
 		position: absolute;
-		top :20%;
+		top :10%;
 		left :40%;
 	}
+
 	.wrap-input2 {
   border-bottom: 1px solid #adadad;
   margin-bottom: 37px;
@@ -104,10 +120,12 @@
     font-size: 20px;
     color: white;
 }
-
-./*fp{
-  color: white;
-}*/
+.space{
+	margin-left: 15px;
+}
+.t1{
+	font-size: 18px;
+}
 
 .col-1 {width: 8.33%;}
 .col-2 {width: 16.66%;}
@@ -133,11 +151,9 @@
   .login {
 		position: absolute;
 		top :25%;
-		left :15%;
+		left :10%;
 		width: 300px;
 
 	}
 }
 </style>
-
-<!-- https://backgroundcheckall.com/wp-content/uploads/2017/12/web-development-background-8.jpg -->

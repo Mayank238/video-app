@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="firstseen">
-      <app-login></app-login>
+      <app-login :logseen="firstseen" @logseenupdated="logseenupdate"></app-login>
     </div>
     <div v-if="!firstseen">
       <div>
-        <app-header :shown="flag" @flagwasupdated="flagupdate"></app-header>
+        <app-header :shown="flag" :logseen="firstseen" @logseenupdated="logseenupdate" @flagwasupdated="flagupdate"></app-header>
       </div>
       <div v-if="flag">
         <app-sidebar class="space"></app-sidebar>
@@ -32,6 +32,9 @@ import login from '@/components/login'
     methods:{
       flagupdate(value){
         this.flag=value;
+      },
+      logseenupdate(value){
+        this.firstseen = value;
       }
     }
   }

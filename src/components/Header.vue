@@ -35,7 +35,7 @@
               <!-- Using button-content slot -->
               <template slot="button-content"><em>User</em></template>
               <b-dropdown-item href="#">Profile</b-dropdown-item>
-              <b-dropdown-item href="#">Signout</b-dropdown-item>
+              <b-dropdown-item @click="signout">Signout</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
@@ -45,11 +45,15 @@
 </template>
 <script type="text/javascript">
 	export default{
-		props:['shown'],
+		props:['shown','logseen'],
 		methods:{
 			managesidebar(){
 				this.shown = !this.shown
 				this.$emit('flagwasupdated', this.shown)
+			},
+			signout(){
+				this.logseen =! this.logseen;
+				this.$emit('logseenupdated', this.logseen)
 			}
 		}
 	}
